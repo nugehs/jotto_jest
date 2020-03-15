@@ -5,8 +5,8 @@ import { findByTestAttr, storeFactory} from '../test/testUtil';
 import Input from './Input';
 
 const setup = (initialState = {}) =>  {
-    const store = storeFactory();
-    const wrapper = shallow(<Input store={store} />).dive().dive();
+    const store = storeFactory(initialState);
+    const wrapper = shallow(<Input store={store}  />).dive().dive();
     return wrapper;
 };
 
@@ -14,8 +14,8 @@ describe('render', () => {
     describe('word has not been guessed', () => {
         let wrapper;
         beforeEach(() => {
-            const initialstate = { success: false };
-            wrapper = setup(initialstate);
+            const initialState = { success: false };
+            wrapper = setup(initialState);
         });
 
         test('renders component without error', () => {
@@ -37,8 +37,8 @@ describe('render', () => {
     describe('word has been successfully guessed', () => {
         let wrapper;
         beforeEach(() => {
-            const initialstate = { success: true };
-            wrapper = setup(initialstate);
+            const initialState = { success: true };
+            wrapper = setup(initialState);
         });
         test('renders component without error', () => {
             const component = findByTestAttr(wrapper, 'component-input');
@@ -46,11 +46,13 @@ describe('render', () => {
         });
 
         test('does not render input box', () => {
-
+            const inputBox = findByTestAttr(wrapper, 'input-box');
+            expect(inputBox.length).toBe(0)
         });
 
         test('does not render submit button', () => {
-
+            const submitButton = findByTestAttr(wrapper, 'submit-button');
+            expect(submitButton.length).toBe(0)
         });
     });
 });

@@ -20,7 +20,7 @@ class Input extends Component {
                             submit
                         </button>
                 </form>
-            )
+            );
         return (
             <div data-test="component-input">
                 {content}
@@ -29,8 +29,8 @@ class Input extends Component {
     }
 };
 
-const mapStateToProps = (state) => {
-    return {}
+const mapStateToProps = ({ success }) => {
+    return { success }
 };
 
 export default connect(mapStateToProps)(Input);
